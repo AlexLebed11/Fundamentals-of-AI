@@ -2,12 +2,10 @@ import random
 import numpy as np
 from deap import base, creator, tools, algorithms
 
-# Определение функции
 def f(individual):
     x, y, z = individual
     return 1 / (1 + (x-2)**2 + (y+1)**2 + (z-1)**2),
 
-# Определение операторов генетического алгоритма
 def create_individual():
     return [random.uniform(-10, 10) for _ in range(3)]
 
@@ -22,7 +20,6 @@ def mutate(individual):
     individual[index] += random.uniform(-1, 1)
     return individual,
 
-# Определение генетического алгоритма
 creator.create("FitnessMax", base.Fitness, weights=(1.0,))
 creator.create("Individual", list, fitness=creator.FitnessMax)
 
@@ -35,7 +32,6 @@ toolbox.register("mate", crossover)
 toolbox.register("mutate", mutate)
 toolbox.register("select", tools.selTournament, tournsize=3)
 
-# Запуск генетического алгоритма
 def main():
     pop = toolbox.population(n=100)
     hof = tools.HallOfFame(1)
